@@ -1,3 +1,4 @@
+import { error } from '@angular/compiler/src/util';
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from './models/user';
@@ -13,24 +14,29 @@ export class AppComponent {
   selectUserLogin: User;
   selectUserRegistrer: User;
   loginBool: Boolean;
+  nameUserLogin: String;
+  server: Number;
 
   constructor(private service: UserService) {}
   ngOnInit() {
+    this.nameUserLogin= "";
+    this.server = 1
     this.loginBool = false;
     this.selectUserLogin = new User();
     this.selectUserRegistrer = new User();
   }
 
   loginUser(form?: NgForm) {
+    localStorage.clear();
     this.service.userLogin(form.value).subscribe((res) => {
-      console.log(res)
+      localStorage.setItem('usuario', JSON.stringify(res));
+      this.nameUserLogin = JSON.parse(localStorage.getItem('usuario')).user.user;
       this.resetForm(form);
-    });
+    })
   }
 
   registrerUser(form?: NgForm) {
     this.service.userRegistrer(form.value).subscribe((res) => {
-      console.log(res)
       this.resetForm(form);
     });
   }
