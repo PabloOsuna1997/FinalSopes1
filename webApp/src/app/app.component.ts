@@ -19,8 +19,8 @@ export class AppComponent {
 
   constructor(private service: UserService) {}
   ngOnInit() {
-    this.nameUserLogin= "";
-    this.server = 1
+    this.nameUserLogin = '';
+    this.server = 1;
     this.loginBool = false;
     this.selectUserLogin = new User();
     this.selectUserRegistrer = new User();
@@ -30,9 +30,13 @@ export class AppComponent {
     localStorage.clear();
     this.service.userLogin(form.value).subscribe((res) => {
       localStorage.setItem('usuario', JSON.stringify(res));
-      this.nameUserLogin = JSON.parse(localStorage.getItem('usuario')).user.user;
+      this.nameUserLogin = JSON.parse(localStorage.getItem('usuario')).user;
       this.resetForm(form);
-    })
+      this.peticiones();
+      setInterval(() => {
+        this.peticiones();
+      }, 5000);
+    });
   }
 
   registrerUser(form?: NgForm) {
@@ -42,9 +46,15 @@ export class AppComponent {
   }
 
   resetForm(form?: NgForm) {
-    if(form){
+    if (form) {
       form.reset();
       this.selectUserRegistrer = new User();
     }
+  }
+
+  peticiones() {
+    this.service.serverCurrent().subscribe((res) => {
+      console.log(res);
+    });
   }
 }

@@ -17,4 +17,8 @@ export class UserService {
   userLogin(user: User){
     return this.http.post(this.url + 'login', user);
   }
+
+  serverCurrent(){
+    return this.http.get('http://localhost:3000/server');
+  }
 }

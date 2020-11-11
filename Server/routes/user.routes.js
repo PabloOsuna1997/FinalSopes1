@@ -2,13 +2,18 @@ const express = require('express')
 const userSchema = require('../models/user')
 const route = express.Router()
 
+
+route.get('/server', (req, res) => {
+    res.status(200).send({sever: 1})
+})
+
 route.post('/user/login', async (req, res) => {
     try {
         const user = await userSchema.findOne({ user: req.body.user })
         
         if (user != null) {
             if (user.password === req.body.password) {
-                res.status(200).json({user, server: 1})
+                res.status(200).json(user)
             } else {
                 res.status(300).json({ message: "credentials not valid." })
             }
