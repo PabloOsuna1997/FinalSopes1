@@ -2,7 +2,7 @@ const express = require('express')
 const userSchema = require('../models/user')
 const route = express.Router()
 
-route.get('/user/login', async (req, res) => {
+route.post('/user/login', async (req, res) => {
     try {
         const user = await userSchema.findOne({ user: req.body.user })
         console.log(user)
@@ -22,6 +22,7 @@ route.get('/user/login', async (req, res) => {
 
 //create user
 route.post('/user/registrer', async (req, res) => {
+    console.log(req.body)
     const newUser = new userSchema({
         user: req.body.user,
         password: req.body.password
