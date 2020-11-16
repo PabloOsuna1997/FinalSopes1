@@ -8,7 +8,7 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 })
 export class UserService {
 
-  readonly url = 'http://localhost:3000/user/'
+  readonly url = 'http://34.121.97.1:3000/user/'
   constructor(private http: HttpClient) { }
 
   userRegistrer(user: User){
@@ -24,10 +24,10 @@ export class UserService {
   }
 
   serverCurrent(){
-    return this.http.get('http://localhost:3000/server');
+    return this.http.get('http://34.121.97.1:3000/server');
   }
 
   getMesages(){
-    return this.http.get<[]>('http://localhost:3000/messages');
+    return this.http.get<[]>('http://34.121.97.1:3000/messages');
   }
 }
