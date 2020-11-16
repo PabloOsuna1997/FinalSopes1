@@ -1,9 +1,17 @@
 .global {
-    margin-top: 10%;
+    margin-top: 2%;
 }
 
 .name {
     width: 15%;
     margin-top: 5%;
     margin-left: 40%;
+}
+
+.form-control2 {
+    width: 50%;
+}
+
+.btn-secundary {
+    margin-left: 10%;
 }

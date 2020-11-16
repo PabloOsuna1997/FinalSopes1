@@ -2,6 +2,7 @@ import { error } from '@angular/compiler/src/util';
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from './models/user';
+import { Message } from './models/message';
 import { UserService } from './service/user.service';
 
 @Component({
@@ -13,6 +14,8 @@ export class AppComponent {
   title = 'webApp';
   selectUserLogin: User;
   selectUserRegistrer: User;
+  selectMessage: Message;
+  messages:Message[];
   loginBool: Boolean;
   nameUserLogin: String;
   server: Number;
@@ -24,6 +27,7 @@ export class AppComponent {
     this.loginBool = false;
     this.selectUserLogin = new User();
     this.selectUserRegistrer = new User();
+    this.selectMessage = new Message();
   }
 
   loginUser(form?: NgForm) {
@@ -55,6 +59,16 @@ export class AppComponent {
   peticiones() {
     this.service.serverCurrent().subscribe((res) => {
       console.log(res);
+    });
+    this.service.getMesages().subscribe((res) => {
+      this.messages = res;
+    });
+  }
+
+  insertNote(form?: NgForm) {
+    form.value.user = JSON.parse(localStorage.getItem('usuario')).user;
+    this.service.messageRegistrer(form.value).subscribe((res) => {
+      this.resetForm(form);
     });
   }
 }

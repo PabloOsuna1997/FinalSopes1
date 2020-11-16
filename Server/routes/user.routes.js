@@ -1,5 +1,6 @@
 const express = require('express')
 const userSchema = require('../models/user')
+const messageSchema = require('../models/message')
 const route = express.Router()
 
 
@@ -39,6 +40,26 @@ route.post('/user/registrer', async (req, res) => {
         res.status(500).send({ message: "fail in create user." })
     }
 
+})
+
+route.post('/user/message', async (req, res) => {
+    console.log(req.body)
+    const newMessage = new messageSchema({
+        user: req.body.user,
+        message: req.body.message
+    })
+    try {
+        await newMessage.save()
+        res.status(200).send({ message: "message created." })
+    } catch (e) {
+        console.log(e)
+        res.status(500).send({ message: "fail in create message." })
+    }
+
+})
+route.get('/messages', async (req, res) => {
+    const messages = await messageSchema.find({})
+    res.status(200).send(messages)
 })
 
 module.exports = route;

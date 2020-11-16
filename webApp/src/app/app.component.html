@@ -65,8 +65,38 @@
   <div class="row">
     <div class="col-sm">
       <div class="alert alert-success" role="alert">
-        {{ nameUserLogin }} Container {{server}}
+        {{ nameUserLogin }} Container {{ server }}
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="container global">
+  <div class="row">
+    <div class="col">
+      <label>Add Notes</label>      
+      <form #messageForm="ngForm" (ngSubmit)="insertNote(messageForm)">
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control2"
+            placeholder="Message"
+            name="message"
+            #user="ngModel"
+            [(ngModel)]="selectMessage.message"
+          />
+          <button type="submit" class="btn btn-secundary">Add Note</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container messages">
+  <div class="row">
+    <div class="col">
+      <label>Notes</label>      
+      <li *ngFor="let message of messages;">{{message.message}} - {{message.user}}</li>
     </div>
   </div>
 </div>
