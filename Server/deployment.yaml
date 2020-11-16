@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test-deployment
+  name: web-server-deployment
 spec:
   replicas: 1
   selector:
@@ -13,7 +13,7 @@ spec:
         app: web-server
     spec:
       containers:
-      - name: test-container
+      - name: web-server
         image: gcr.io/pro2-so1/web-server:1.0
         ports:
         - containerPort: 3000
